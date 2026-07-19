@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output (Vercel akan build sendiri, tapi dist dikecualikan dari Git)
+dist/
+
+# Environment files — JANGAN pernah commit file ini ke GitHub!
+.env.local
+.env.production.local
+
+# Catatan: .env.development dan .env.production sengaja TIDAK dikecualikan
+# agar Vercel bisa membaca VITE_ variables saat build.
+# Pastikan tidak ada password/secret di dalamnya!
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*.log

@@ -1,0 +1,548 @@
+/* Search.module.css */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 100px 20px 60px;
+}
+
+/* Sidebar Filter dengan scrolling agar tidak terpotong di layar kecil */
+.sidebar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  height: fit-content;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  position: sticky;
+  top: 88px;
+}
+
+/* Kustomisasi scrollbar sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.filterHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.filterTitle {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterBadge {
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.resetLink {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.resetLink:hover {
+  color: #ff5252;
+}
+
+.myListAlert {
+  background: rgba(0, 255, 102, 0.1);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  color: var(--accent);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.myListAlert button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filterGroup {
+  margin-bottom: 22px;
+}
+
+.filterGroup > label,
+.groupTitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.genreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  transition: var(--transition);
+}
+.input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.genreSearchInput {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.genreSearchInput:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.genreBox {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  padding: 8px 12px 8px 8px;
+  border-radius: 8px;
+}
+
+.genreBox::-webkit-scrollbar {
+  width: 6px;
+}
+.genreBox::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+.genreBox::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.genreLabel {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  position: relative;
+  border: 1px solid transparent;
+  text-transform: none !important;
+}
+
+.genreLabel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.genreActive {
+  background: rgba(0, 255, 102, 0.1) !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-color: rgba(0, 255, 102, 0.25);
+}
+
+/* Sembunyikan input default browser */
+.genreLabel input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Kotak custom checkbox modern */
+.customCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.genreLabel:hover .customCheck {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Saat dicentang */
+.genreLabel input[type="checkbox"]:checked + .customCheck {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.35);
+}
+
+.customCheck::after {
+  content: "✓";
+  color: #000;
+  font-size: 11px;
+  font-weight: 900;
+  opacity: 0;
+  transform: scale(0.2);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.genreLabel input[type="checkbox"]:checked + .customCheck::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.genreText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noGenre {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.btnResetFull {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 82, 82, 0.1);
+  color: #ff5252;
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 6px;
+}
+.btnResetFull:hover {
+  background: rgba(255, 82, 82, 0.2);
+}
+
+/* Results Section */
+.results {}
+
+.resultsHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.resultsTitle {
+  font-size: 22px;
+  font-weight: 700;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent);
+}
+
+.resultsTitle span {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.count {
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.loadingRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 480px;
+  margin: 40px auto;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyState h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.emptyState p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.btnResetEmpty {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btnResetEmpty:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* ========================
+   MOBILE FLOATING FILTER (NGAMBANG) & RESPONSIVENESS
+======================== */
+
+/* Sembunyikan elemen khusus mobile saat dibuka di Desktop (> 900px) */
+.floatingBtn,
+.mobileFilterOverlay,
+.mobileSidebarHead,
+.mobileSidebarFoot {
+  display: none;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 75px 16px 60px;
+  }
+
+  .floatingBadge {
+    background: var(--accent);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  /* Tombol Bulat Ngambang (Floating Action Button) di pojok bawah */
+  .floatingBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 850;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 6px 28px rgba(0, 255, 102, 0.45);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .floatingBtn:hover {
+    transform: scale(1.08);
+  }
+
+  /* Overlay gelap di belakang drawer filter mobile */
+  .mobileFilterOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(5px);
+    z-index: 9998;
+    animation: fadeIn 0.2s ease;
+  }
+
+  /* Secara default di mobile, sidebar disembunyikan sampai tombol filter diklik */
+  .sidebar {
+    display: none;
+  }
+
+  /* Sidebar saat mode Drawer Ngambang aktif di mobile */
+  .sidebarMobileActive {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    max-height: 85vh !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    background: #111814 !important;
+    border: 1px solid var(--border-hover) !important;
+    border-radius: 24px 24px 0 0 !important;
+    padding: 20px 20px 30px 20px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 255, 102, 0.2) !important;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobileSidebarHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .mobileSidebarTitle {
+    font-weight: 800;
+    font-size: 17px;
+    color: #fff;
+  }
+
+  .btnCloseSidebar {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobileSidebarFoot {
+    display: block;
+    position: sticky;
+    bottom: -20px;
+    background: #111814;
+    padding: 16px 0 10px 0;
+    margin-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btnApplyFilter {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 800;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 255, 102, 0.3);
+  }
+
+  /* Grid kartu hasil di mobile (2 kolom sejajar) */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .resultsHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

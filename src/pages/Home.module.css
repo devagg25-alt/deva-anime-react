@@ -1,0 +1,386 @@
+/* ========================
+   LOADER
+======================== */
+.loader {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; height: 100vh; gap: 16px;
+  color: var(--text-secondary);
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ========================
+   SKELETON LOADING
+======================== */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeletonCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.skeletonImg {
+  width: 100%; aspect-ratio: 2/3;
+  background: linear-gradient(90deg, #0e1511 25%, #162019 50%, #0e1511 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skeletonText {
+  height: 14px; margin: 12px 12px 6px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0e1511 25%, #162019 50%, #0e1511 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skeletonTextSmall {
+  height: 10px; margin: 0 12px 12px; width: 60%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0e1511 25%, #162019 50%, #0e1511 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s 0.2s infinite;
+}
+
+/* HERO SKELETON */
+.heroSkeleton { max-width: 600px; }
+.skBadge {
+  width: 180px; height: 28px; border-radius: 30px; margin-bottom: 24px;
+  background: linear-gradient(90deg, rgba(0,255,102,0.06) 25%, rgba(0,255,102,0.12) 50%, rgba(0,255,102,0.06) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skTitle {
+  width: 420px; height: 60px; border-radius: 8px; margin-bottom: 20px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skSynopsis {
+  width: 100%; height: 60px; border-radius: 6px; margin-bottom: 28px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s 0.1s infinite;
+}
+.skButtons {
+  width: 280px; height: 46px; border-radius: 8px;
+  background: linear-gradient(90deg, rgba(0,255,102,0.08) 25%, rgba(0,255,102,0.15) 50%, rgba(0,255,102,0.08) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s 0.2s infinite;
+}
+
+/* ========================
+   HERO SECTION
+======================== */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 70px;
+  background: var(--bg-main);
+}
+
+/* Background image layer — fade-in setelah load */
+.heroBg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.heroBgVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Multi-layer gradient overlay */
+.heroGradient {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right,  rgba(6,10,8,0.97) 0%, rgba(6,10,8,0.80) 45%, rgba(6,10,8,0.10) 100%),
+    linear-gradient(to top,    rgba(6,10,8,1.00) 0%, transparent 40%),
+    linear-gradient(to bottom, rgba(6,10,8,0.60) 0%, transparent 20%);
+  z-index: 1;
+}
+
+.heroInner {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.heroContent { max-width: 580px; }
+
+.badge {
+  display: inline-block;
+  background: rgba(0,255,102,0.10);
+  color: var(--accent);
+  border: 1px solid rgba(0,255,102,0.30);
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.heroTitle {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.heroSynopsis {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.heroBtns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btnPrimary {
+  background: var(--accent);
+  color: #000;
+  padding: 14px;
+  width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  will-change: transform;
+}
+.btnPrimary:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 24px rgba(0,255,102,0.45);
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: 1px solid var(--border-hover);
+  padding: 14px;
+  width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  transition: border-color 0.2s, color 0.2s;
+  will-change: transform;
+}
+.btnSecondary:hover {
+  background: rgba(0,255,102,0.10);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================
+   MAIN CONTENT
+======================== */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+.section { margin-bottom: 60px; }
+
+.sectionHead {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 26px;
+}
+
+.sectionTitle {
+  font-size: 22px; font-weight: 700;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent);
+  line-height: 1.3;
+}
+.sectionTitle span {
+  display: block; font-size: 13px;
+  font-weight: 400; color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.viewAll {
+  font-size: 13px; font-weight: 600;
+  color: var(--accent);
+  transition: text-shadow 0.2s;
+}
+.viewAll:hover { text-shadow: 0 0 10px var(--accent); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 20px;
+}
+
+/* ========================
+   ANIME CARD (Inline)
+======================== */
+.card {
+  display: flex; flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-hover);
+  box-shadow: 0 12px 40px rgba(0,255,102,0.08);
+}
+
+.cardImgWrap {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+.cardImgWrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+.card:hover .cardImgWrap img { transform: scale(1.06); }
+
+.cardOverlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.50);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.card:hover .cardOverlay { opacity: 1; }
+
+.playBtn {
+  width: 50px; height: 50px;
+  background: var(--accent);
+  color: #000;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transform: scale(0.8);
+  transition: transform 0.25s ease;
+  box-shadow: 0 0 20px rgba(0,255,102,0.5);
+}
+.card:hover .playBtn { transform: scale(1); }
+
+.ratingBadge {
+  position: absolute; top: 8px; left: 8px;
+  background: rgba(0,0,0,0.75);
+  color: var(--accent);
+  border: 1px solid rgba(0,255,102,0.25);
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11px; font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+
+.cardContent { padding: 12px 14px 14px; }
+
+.cardTitle {
+  font-size: 13px; font-weight: 600;
+  margin-bottom: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.cardMeta {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.studioName { color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.airingDot { color: var(--accent); font-weight: 600; flex-shrink: 0; margin-left: 6px; }
+.doneDot   { color: var(--text-muted); flex-shrink: 0; margin-left: 6px; }
+
+/* ========================
+   FOOTER
+======================== */
+.footer {
+  text-align: center;
+  padding: 28px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.footer span { color: var(--accent); font-weight: 600; }
+
+/* ========================
+   RESPONSIVENESS (MOBILE)
+======================== */
+@media (max-width: 768px) {
+  .main {
+    padding: 0 16px 60px;
+  }
+  .hero {
+    height: 480px;
+  }
+  .heroInner {
+    padding: 0 20px 40px;
+  }
+  .heroTitle {
+    font-size: 32px;
+  }
+  .heroSynopsis {
+    font-size: 13.5px;
+    -webkit-line-clamp: 3;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .heroTitle {
+    font-size: 26px;
+  }
+  .heroButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
